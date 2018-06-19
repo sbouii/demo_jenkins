@@ -1,7 +1,9 @@
+#!groovy
+
 pipeline {
     agent any 
     stages {
-         // Build
+         
          stage(‘Build’) {
           agent {
            label 'master'
