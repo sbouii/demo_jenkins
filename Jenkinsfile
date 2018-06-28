@@ -17,8 +17,8 @@ node {
     withCredentials([usernamePassword(credentialsId: 'bb1d6a8d-79d7-44e4-aa01-31a5fee6a56c', usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD')]){
 //      def user = env.USERNAME
 //      def password = env.PASSWORD
-      echo 'USERNAME'
-      echo 'PASSWORD'
+      echo env.USERNAME
+      echo env.PASSWORD
 //      push_image(${user}, ${password}, CONTAINER_NAME, CONTAINER_TAG)
     }
   }
