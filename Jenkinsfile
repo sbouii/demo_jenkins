@@ -14,7 +14,7 @@ node {
 //  }
 
   stage('push to docker Registry'){
-    withCredentials([usernamePassword(credentialsId: 'Jenkins', usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD')]){
+    withCredentials([usernamePassword(credentialsId: 'jenkins', usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD')]){
       def user = env.USERNAME
       def password = env.PASSWORD
       echo '${user}'
