@@ -14,7 +14,11 @@ node {
 
   stage('push to docker Registry'){
     withCredentials([usernamePassword(credentialsId: 'dockerHubAccount', usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD')]){
-      push_image(USERNAME, PASSWORD, CONTAINER_NAME, CONTAINER_TAG)
+      def user = env.USERNAME
+      def password = env.PASSWORD
+      echo '${user}'
+      echo '${password}'
+//      push_image(${user}, ${password}, CONTAINER_NAME, CONTAINER_TAG)
     }
   }
 
@@ -27,13 +31,13 @@ node {
 //   echo "Image building is complete"
 
 //}
-def push_image(dockerUser, dockerPassword, containerName, tag){
-   sh "docker login-u $dockerUser -p $dockerPassword"
+//def push_image(dockerUser, dockerPassword, containerName, tag){
+//   sh "docker login-u $dockerUser -p $dockerPassword"
    //sh "docker tag $containerName:$tag $dockerUser/$containerName:$tag"
    //sh "docker push $dockerUser/$containerName:$tag"
    //echo "Image pushing is complete"
 
-}
+//}
 //def run_container(dockerHubUser, containerName, tag){
 //   sh "docker pull $dockerHubUser/$containerName"
 //   sh "docker run -d --name $containerName $dockerHubUser/$containerName:$tag"
