@@ -21,22 +21,23 @@ node {
   stage('Run docker container'){
     run_container(DOCKER_HUB_USER, CONTAINER_NAME, CONTAINER_TAG)
   }
-  def build_image(containerName, tag){
+}
+def build_image(containerName, tag){
    sh "docker build -t $containerName:$tag --no-cache ."
    echo "Image building is complete"
 
-  }
-  def push_image(dockerUser, dockerPassword, containerName, tag){
+}
+def push_image(dockerUser, dockerPassword, containerName, tag){
    sh "docker login-u $dockerUser -p $dockerPassword"
    sh "docker tag $containerName:$tag $dockerUser/$containerName:$tag"
    sh "docker push $dockerUser/$containerName:$tag"
    echo "Image pushing is complete"
 
-  }
-  def run_container(dockerHubUser, containerName, tag){
+}
+def run_container(dockerHubUser, containerName, tag){
    sh "docker pull $dockerHubUser/$containerName"
    sh "docker run -d --name $containerName $dockerHubUser/$containerName:$tag"
    echo "Container started"
 
-  }
 }
+
