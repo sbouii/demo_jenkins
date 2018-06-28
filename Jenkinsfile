@@ -3,6 +3,7 @@
 def CONTAINER_NAME="jenkins-container"
 def CONTAINER_TAG="latest"
 def DOCKER_HUB_USER="sbouii"
+
 node {
   stage ('checkout code from repository'){
     checkout scm
@@ -13,7 +14,7 @@ node {
 //  }
 
   stage('push to docker Registry'){
-    withCredentials([usernamePassword(credentialsId: 'dockerHubAccount', usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD')]){
+    withCredentials([usernamePassword(credentialsId: 'Jenkins', usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD')]){
       def user = env.USERNAME
       def password = env.PASSWORD
       echo '${user}'
