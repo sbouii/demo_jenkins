@@ -1,0 +1,30 @@
+#!groovy
+
+def project = 'bust-root-125814'
+def appName = 'smart-ansible'
+def imageTag = "gcr.io/${project}/${appName}"
+def label = "mypod-${UUID.randomUUID().toString()}"
+podTemplate(label: label, yaml: """
+apiVersion: v1
+kind: Pod
+metadata:
+  labels:
+    some-label: some-label-value
+spec:
+  containers:
+  - name: gcloud
+    image: google/cloud-sdk
+    command:
+    - cat
+    tty: true
+            
+"""
+) {
+    node (label) {
+      container('gcloud') {
+        sh "gcloud source repos clone smart-ops-repository ."
+        sh "gcloud container builds submit provision/ --tag $imageTag"
+        sh "kubectl apply -f job.yaml"
+      }
+    }
+}
